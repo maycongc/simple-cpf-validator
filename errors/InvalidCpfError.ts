@@ -1,5 +1,5 @@
 export default class InvalidCpfError extends Error {
-  constructor(message: string){
-    super(message)
+  constructor(){
+    super('Please inform a valid CPF.')
   }
 }

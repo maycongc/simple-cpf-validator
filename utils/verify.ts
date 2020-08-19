@@ -3,35 +3,35 @@ import InvalidCpfError from "../errors/InvalidCpfError"
 class Verify{
   length(cpf: string[]) {
     if(cpf.length !== 11) {
-      throw new InvalidCpfError('Please inform a valid CPF.')
+      throw new InvalidCpfError()
     }
   }
 
   sequence(cpf: string[]){
     if(cpf[0].repeat(11) === cpf.join('')) {
-      throw new InvalidCpfError('Please inform a valid CPF.')
+      throw new InvalidCpfError()
     }
   }
 
-  firstDigit(cpfLimpo: string[], digito: string) {
-    const total = cpfLimpo.map(Number).reduce((acc, value, indice) => {
+  firstDigit(cpfBody: string[], digit: string) {
+    const total = cpfBody.map(Number).reduce((acc, value, indice) => {
       return acc += value * (indice + 1)
     }, 0)
 
-    if(total % 11 !== Number(digito)) {
-      throw new InvalidCpfError('Please inform a valid CPF.')
+    if(total % 11 !== Number(digit)) {
+      throw new InvalidCpfError()
     }
   }
 
-  secondDigit(cpfLimpo: string[], digito: string[]) {
-    const cpfNumbers = [...cpfLimpo, digito[0]]
+  secondDigit(cpfBody: string[], digit: string[]) {
+    const cpfNumbers = [...cpfBody, digit[0]]
   
     const total = cpfNumbers.map(Number).reduce((acc, value, indice) => {
       return acc += value * indice
     }, 0)
   
-    if(total % 11 !== Number(digito[1])) {
-      throw new InvalidCpfError('Please inform a valid CPF.')
+    if(total % 11 !== Number(digit[1])) {
+      throw new InvalidCpfError()
     }
   }
 }
