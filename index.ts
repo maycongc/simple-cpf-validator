@@ -16,17 +16,19 @@ class Pessoa {
       verify.length(cpfArray)
       verify.sequence(cpfArray)
 
-      const cpfCorpo = cpfArray.splice(0, 9)
-      const digitos = cpfArray.splice(cpfArray.length - 2, 2)
+      const cpfBody = cpfArray.splice(0, 9)
+      const digit = cpfArray.splice(cpfArray.length - 2, 2)
 
-      verify.firstDigit(cpfCorpo, digitos[0])
-      verify.secondDigit(cpfCorpo, digitos)
+      verify.firstDigit(cpfBody, digit[0])
+      verify.secondDigit(cpfBody, digit)
 
       this.cpf = cpf
     }catch(e) {
-      console.log(e)
+      console.log(e.message)
     }
   }
 }
 
-const p1 = new Pessoa('Nome', '547.882.940-44')
+// valid cpf: 547.882.940-44
+
+const p1 = new Pessoa('Nome', '547.832.940-44')
