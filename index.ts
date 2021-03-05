@@ -1,4 +1,5 @@
 import verify from './utils/verify'
+import List from './utils/CpfList'
 
 class Pessoa {
   private name: string
@@ -10,25 +11,27 @@ class Pessoa {
   }
 
   set setCpf(cpf: string) {
-    try{
-      const cpfArray = Array.from(cpf).filter(value => !isNaN(Number(value)))
+    // Transformando a string em um array e filtrando tudo que não for numero
+    const cpfArray = Array.from(cpf).filter(value => !isNaN(Number(value)))
 
-      verify.length(cpfArray)
-      verify.sequence(cpfArray)
+    verify.length(cpfArray)
+    verify.sequence(cpfArray)
 
-      const cpfBody = cpfArray.splice(0, 9)
-      const digit = cpfArray.splice(cpfArray.length - 2, 2)
+    const cpfBody = cpfArray.splice(0, 9)
+    const digit = cpfArray.splice(cpfArray.length - 2, 2)
 
-      verify.firstDigit(cpfBody, digit[0])
-      verify.secondDigit(cpfBody, digit)
+    verify.firstDigit(cpfBody, digit[0])
+    verify.secondDigit(cpfBody, digit)
 
-      this.cpf = cpf
-    }catch(e) {
-      console.log(e.message)
-    }
+    // Se chegou até aqui cpf é valido e vai ser registrado no objeto
+    this.cpf = cpf
   }
 }
 
-// valid cpf: 547.882.940-44
-
-const p1 = new Pessoa('Nome', '547.832.940-44')
+for(let i=0; i < List.length; i++)
+  try{
+    let p = new Pessoa(List[i].name, List[i].cpf)
+    console.log(p)
+  }catch(e){
+    console.log(e.message)
+  }
