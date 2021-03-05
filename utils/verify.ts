@@ -3,13 +3,13 @@ import InvalidCpfError from "../errors/InvalidCpfError"
 class Verify{
   length(cpf: string[]) {
     if(cpf.length !== 11) {
-      throw new InvalidCpfError()
+      throw new InvalidCpfError('LengthError')
     }
   }
 
   sequence(cpf: string[]){
     if(cpf[0].repeat(11) === cpf.join('')) {
-      throw new InvalidCpfError()
+      throw new InvalidCpfError('SequenceError')
     }
   }
 
@@ -19,7 +19,7 @@ class Verify{
     }, 0)
 
     if(total % 11 !== Number(digit)) {
-      throw new InvalidCpfError()
+      throw new InvalidCpfError('FirstDigitError')
     }
   }
 
@@ -31,7 +31,7 @@ class Verify{
     }, 0)
   
     if(total % 11 !== Number(digit[1])) {
-      throw new InvalidCpfError()
+      throw new InvalidCpfError('SecondDigitError')
     }
   }
 }
